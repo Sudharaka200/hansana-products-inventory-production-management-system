@@ -1,4 +1,5 @@
 import React from 'react'
+import ProductImg from '../assets/cad6e28c-d9a0-498f-9a4c-684b39845266.png'
 
 
 const products = [
@@ -6,8 +7,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -15,8 +15,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -24,8 +23,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -33,8 +31,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -42,8 +39,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -51,8 +47,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -60,8 +55,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -69,8 +63,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -78,8 +71,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -87,8 +79,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -96,8 +87,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -105,8 +95,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
+    imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
   },
@@ -124,7 +113,6 @@ function Product() {
                         {products.map((product) => (
                             <div key={product.id} className="group relative">
                                 <img
-                                    alt={product.imageAlt}
                                     src={product.imageSrc}
                                     className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
                                 />

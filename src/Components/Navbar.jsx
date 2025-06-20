@@ -17,11 +17,11 @@ function Navbar() {
                         <div className="md:flex md:items-center md:gap-12">
                             <nav aria-label="Global" className="hidden md:block">
                                 <ul className="flex items-center gap-6 text-sm">
-                                    <MenuLink name="Home" url="home"/>
-                                    <MenuLink name="About" url="home"/>
-                                    <MenuLink name="Products" url="home"/>
-                                    <MenuLink name="Gallery" url="home"/>
-                                    <MenuLink name="Login" url="home"/>
+                                    <MenuLink name="Home" url="/"/>
+                                    <MenuLink name="About" url="/about"/>
+                                    <MenuLink name="Products" url="/products"/>
+                                    <MenuLink name="Gallery" url="/gallery"/>
+                                    <MenuLink name="Login" url="/login"/>
                                 </ul>
                             </nav>
 
