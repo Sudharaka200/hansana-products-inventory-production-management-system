@@ -1,41 +1,34 @@
 import React from 'react'
-import backgroundImage from '../assets/BackgrounImg.png';
+// import backgroundImage from '../assets/BackgrounImg.png';
 
-function Banner() {
+function Banner(props) {
     return (
         <div>
             <div style={{
-                backgroundImage: `url(${backgroundImage})`,
+                backgroundImage: `url(${props.img})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}>
                 <section class=" lg:grid lg:h-screen lg:place-content-center">
                     <div class="mx-auto w-screen max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
                         <div class="mx-auto max-w-prose text-center">
-                            <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl dark:text-white">
-                                Understand user flow and
-                                <strong class="text-indigo-600"> increase </strong>
-                                conversions
-                            </h1>
+                            <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl dark:text-white">{props.bannerTitle}</h1>
 
-                            <p class="mt-4 text-base text-pretty text-gray-700 sm:text-lg/relaxed dark:text-gray-200">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, nisi. Natus, provident
-                                accusamus impedit minima harum corporis iusto.
-                            </p>
+                            <p class="mt-4 text-base text-pretty text-gray-700 sm:text-lg/relaxed dark:text-gray-200">{props.bannerP}</p>
 
                             <div class="mt-4 flex justify-center gap-4 sm:mt-6">
                                 <a
                                     class="inline-block rounded border border-indigo-600 bg-indigo-600 px-5 py-3 font-medium text-white shadow-sm transition-colors hover:bg-indigo-700"
                                     href="#"
                                 >
-                                    Get Started
+                                    {props.button1}
                                 </a>
 
                                 <a
                                     class="inline-block rounded border border-gray-200 px-5 py-3 font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white"
                                     href="#"
                                 >
-                                    Learn More
+                                    {props.button2}
                                 </a>
                             </div>
                         </div>
