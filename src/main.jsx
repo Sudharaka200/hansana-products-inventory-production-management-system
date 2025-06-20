@@ -8,6 +8,9 @@ import About from './Pages/About/About.jsx';
 import Products from './Pages/Products/Products.jsx';
 import Gallery from './Pages/Gallery/Gallery.jsx';
 import Login from './Pages/Login/Login.jsx';
+import Register from './Pages/Login/Register.jsx';
+import ProductOverview from './Pages/Products/ProductOverview.jsx';
+import Cart from './Pages/Cart/Cart.jsx';
 
 const router = createBrowserRouter([
 {
@@ -30,7 +33,18 @@ const router = createBrowserRouter([
   path:"/login",
   element: <Login />
 },
-
+{
+  path:"/register",
+  element: <Register />
+},
+{
+  path:"/productoverview",
+  element: <ProductOverview />
+},
+{
+  path:"/cart",
+  element: <Cart />
+},
 ]);
 
 createRoot(document.getElementById('root')).render(

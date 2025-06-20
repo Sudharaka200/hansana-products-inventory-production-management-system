@@ -6,7 +6,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -14,7 +14,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -22,7 +22,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -30,7 +30,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -38,7 +38,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -46,7 +46,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -54,7 +54,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -62,7 +62,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -70,7 +70,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -78,7 +78,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -86,7 +86,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
@@ -94,7 +94,7 @@ const products = [
   {
     id: 1,
     name: 'Basic Tee',
-    href: '#',
+    href: '/productoverview',
     imageSrc: ProductImg,
     price: '$35',
     color: 'Black',
