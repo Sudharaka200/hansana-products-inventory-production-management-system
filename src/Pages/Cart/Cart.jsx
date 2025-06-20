@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from '../../Components/Navbar'
 
 function Cart() {
   return (
     <div>
-      <h1>cart</h1>
+      <Navbar />
+      <h1 className='text-center'>cart</h1>
     </div>
   )
 }

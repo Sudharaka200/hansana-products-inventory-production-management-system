@@ -11,6 +11,8 @@ import Login from './Pages/Login/Login.jsx';
 import Register from './Pages/Login/Register.jsx';
 import ProductOverview from './Pages/Products/ProductOverview.jsx';
 import Cart from './Pages/Cart/Cart.jsx';
+import OrderDetails from './Pages/Order/OrderDetails.jsx';
+import OrderPlaced from './Pages/Order/OrderPlaced.jsx';
 
 const router = createBrowserRouter([
 {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
 {
   path:"/cart",
   element: <Cart />
+},
+{
+  path:"/orderdetails",
+  element: <OrderDetails />
+},
+{
+  path:"/orderplaced",
+  element: <OrderPlaced />
 },
 ]);
 
