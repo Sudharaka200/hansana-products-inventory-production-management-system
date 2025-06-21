@@ -13,6 +13,7 @@ import ProductOverview from './Pages/Products/ProductOverview.jsx';
 import Cart from './Pages/Cart/Cart.jsx';
 import OrderDetails from './Pages/Order/OrderDetails.jsx';
 import OrderPlaced from './Pages/Order/OrderPlaced.jsx';
+import AdminLogin from './Admin/AdminLogin.jsx'
 
 const router = createBrowserRouter([
 {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
 {
   path:"/orderplaced",
   element: <OrderPlaced />
+},
+{
+  path:"/adminlogin",
+  element: <AdminLogin />
 },
 ]);
 
