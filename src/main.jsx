@@ -17,9 +17,14 @@ import AdminLogin from './Admin/AdminLogin.jsx'
 import RefDashboard from './Admin/Ref/RefDashboard.jsx';
 import TestDashboards from './Admin/TestDashboards.jsx';
 import SalesTruck from './Admin/SalesTruck/SalesTruck.jsx';
-import ProductManager from './Admin/ProductManager/ProductManager.jsx';
 import FinanceManager from './Admin/FinanceManager/FinanceManager.jsx';
 import RefOrders from './Admin/Ref/RefOrders.jsx';
+import SalesHistory from './Admin/SalesTruck/SalesHistory.jsx';
+import ProductDashboard from './Admin/ProductManager/ProductDashboard.jsx';
+import ProductAll from './Admin/ProductManager/ProductAll.jsx';
+import ProductOrder from './Admin/ProductManager/ProductOrder.jsx'
+import ProductHistory from './Admin/ProductManager/ProductOrderHistory.jsx'
+
 
 const router = createBrowserRouter([
 {
@@ -79,8 +84,8 @@ const router = createBrowserRouter([
   element: <SalesTruck />
 },
 {
-  path:"/productmanager",
-  element: <ProductManager />
+  path:"/productdashbaord",
+  element: <ProductDashboard />
 },
 {
   path:"/financemanager",
@@ -94,6 +99,28 @@ const router = createBrowserRouter([
   path:"/refdashboard",
   element: <RefDashboard />
 },
+{
+  path:"/salesOrders",
+  element: <SalesTruck />
+},
+{
+  path:"/salesHistory",
+  element: <SalesHistory />
+},
+{
+  path:"/productsallproducts",
+  element: <ProductAll />
+},
+{
+  path:"/productshistory",
+  element: <ProductOrder />
+},
+{
+  path:"/prodcutsorderhistory",
+  element: <ProductHistory />
+},
+
+
 
 ]);
 

@@ -14,7 +14,7 @@ function TestDashboards() {
           <button className='bg-amber-800 w-100 text-amber-50 mt-5 mr-5 pt-2 pb-2 pl-5 pr-5 rounded font-semibold'> Sales Truck</button> <br />
         </Link>
 
-        <Link to="/productmanager">
+        <Link to="/productdashbaord">
           <button className='bg-amber-800 w-100 text-amber-50 mt-5 mr-5 pt-2 pb-2 pl-5 pr-5 rounded font-semibold'> Product Manager</button> <br />
 
         </Link>

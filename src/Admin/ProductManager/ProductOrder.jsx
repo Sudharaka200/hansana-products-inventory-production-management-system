@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DashboardBtn from '../../Components/DashboardBtn';
 import Logo from '../../assets/adminLogo.png'
 
-function SalesTruck() {
+function ProductOrder() {
     return (
         <div>
             <div>
@@ -15,8 +15,10 @@ function SalesTruck() {
                         </div>
                         <DashboardBtn
                             btns={[
-                                { name: "Orders", url: "/salesOrders" },
-                                { name: "Orders History", url: "/salesHistory" },
+                                { name: "Dashboard", url: "/productdashbaord" },
+                                { name: "Products", url: "/productsallproducts" },
+                                { name: "Orders", url: "/productshistory" },
+                                { name: "OrderHistory", url: "/prodcutsorderhistory" },
                             ]}
                         />
                     </aside>
@@ -37,4 +39,4 @@ function SalesTruck() {
     )
 }
 
-export default SalesTruck
+export default ProductOrder

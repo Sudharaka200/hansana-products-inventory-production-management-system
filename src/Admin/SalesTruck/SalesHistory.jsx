@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DashboardBtn from '../../Components/DashboardBtn';
 import Logo from '../../assets/adminLogo.png'
 
-function SalesTruck() {
+function SalesHistory() {
     return (
         <div>
             <div>
@@ -37,4 +37,4 @@ function SalesTruck() {
     )
 }
 
-export default SalesTruck
+export default SalesHistory
