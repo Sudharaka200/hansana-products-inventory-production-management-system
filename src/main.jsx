@@ -19,7 +19,7 @@ import TestDashboards from './Admin/TestDashboards.jsx';
 import SalesTruck from './Admin/SalesTruck/SalesTruck.jsx';
 import ProductManager from './Admin/ProductManager/ProductManager.jsx';
 import FinanceManager from './Admin/FinanceManager/FinanceManager.jsx';
-import Orders from './Admin/Ref/Orders.jsx';
+import RefOrders from './Admin/Ref/RefOrders.jsx';
 
 const router = createBrowserRouter([
 {
@@ -87,8 +87,12 @@ const router = createBrowserRouter([
   element: <FinanceManager />
 },
 {
-  path:"/orders",
-  element: <Orders />
+  path:"/reforders",
+  element: <RefOrders />
+},
+{
+  path:"/refdashboard",
+  element: <RefDashboard />
 },
 
 ]);

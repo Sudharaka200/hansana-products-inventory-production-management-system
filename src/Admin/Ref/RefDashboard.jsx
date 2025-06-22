@@ -1,5 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom';
+import DashboardBtn from '../../Components/DashboardBtn';
+import Logo from '../../assets/adminLogo.png'
 
 function RefDashboard() {
     return (
@@ -8,16 +10,15 @@ function RefDashboard() {
                 <div className="flex h-screen bg-gray-100">
                     {/* Sidebar */}
                     <aside className="w-64 bg-black text-white flex flex-col p-4">
-                        <div className="text-red-500 text-xl font-bold mb-6">
-                            <div>🟥 Hansana</div>
-                            <div className="text-sm">Products</div>
+                        <div >
+                            <img src={Logo} alt="" />
                         </div>
-                        <nav className="space-y-2">
-                            <button className="w-full text-left px-4 py-2 bg-gray-800 rounded hover:bg-gray-700">Dashboard</button>
-                           <Link to="/orders">
-                             <button className="w-full text-left px-4 py-2 bg-gray-800 rounded hover:bg-gray-700">Orders</button>
-                           </Link>
-                        </nav>
+                        <DashboardBtn
+                            btns={[
+                                { name: "Dashboard", url: "/refdashboard" },
+                                { name: "Orders", url: "/reforders" },
+                            ]}
+                        />
                     </aside>
 
                     {/* Main Content */}
