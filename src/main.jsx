@@ -14,6 +14,12 @@ import Cart from './Pages/Cart/Cart.jsx';
 import OrderDetails from './Pages/Order/OrderDetails.jsx';
 import OrderPlaced from './Pages/Order/OrderPlaced.jsx';
 import AdminLogin from './Admin/AdminLogin.jsx'
+import RefDashboard from './Admin/Ref/RefDashboard.jsx';
+import TestDashboards from './Admin/TestDashboards.jsx';
+import SalesTruck from './Admin/SalesTruck/SalesTruck.jsx';
+import ProductManager from './Admin/ProductManager/ProductManager.jsx';
+import FinanceManager from './Admin/FinanceManager/FinanceManager.jsx';
+import Orders from './Admin/Ref/Orders.jsx';
 
 const router = createBrowserRouter([
 {
@@ -60,6 +66,31 @@ const router = createBrowserRouter([
   path:"/adminlogin",
   element: <AdminLogin />
 },
+{
+  path:"/testdashbaord",
+  element: <TestDashboards />
+},
+{
+  path:"/refdashbord",
+  element: <RefDashboard />
+},
+{
+  path:"/salestruck",
+  element: <SalesTruck />
+},
+{
+  path:"/productmanager",
+  element: <ProductManager />
+},
+{
+  path:"/financemanager",
+  element: <FinanceManager />
+},
+{
+  path:"/orders",
+  element: <Orders />
+},
+
 ]);
 
 createRoot(document.getElementById('root')).render(
