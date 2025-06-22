@@ -2,6 +2,7 @@ import React from 'react'
 import ProductImg from '../assets/cad6e28c-d9a0-498f-9a4c-684b39845266.png'
 import Button from './Button'
 import Cart from '../Pages/Cart/Cart'
+import { Link } from 'react-router'
 
 
 const products = [
@@ -115,7 +116,7 @@ function Product() {
             {products.map((product) => (
               
               <div key={product.id} className="group relative">
-                <a href={product.href}>
+                <Link to={product.href}>
                   <img
                     src={product.imageSrc}
                     className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
@@ -131,7 +132,7 @@ function Product() {
                   </div>
                   <p className="text-sm font-medium text-gray-900">{product.price}</p>
                 </div>
-                </a>
+                </Link>
                 <Cart cart="Add To Cart" buyNow="Buy Now" />
               </div>
             ))}

@@ -118,7 +118,7 @@ function Cart(props) {
         >
           {props.cart}
         </button>
-        <button href={props.url} className='bg-amber-300 text-amber-50 ml-3 pt-2 pb-2 pl-5 pr-5 rounded font-semibold'>{props.buyNow}</button>
+        <button href={props.url1} className='bg-amber-300 text-amber-50 ml-3 pt-2 pb-2 pl-5 pr-5 rounded font-semibold'>{props.buyNow}</button>
 
         <Dialog open={open} onClose={setOpen} className="relative z-10">
           <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true" />

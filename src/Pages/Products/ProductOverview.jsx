@@ -1,41 +1,37 @@
 import React from 'react'
 import Navbar from '../../Components/Navbar'
 import Cart from '../Cart/Cart';
+import Product1 from '../../assets/p1.png'
 
 function ProductOverview() {
 
     const data = [
         {
-            imgelink:
-                "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+            imgelink: Product1,
         },
         {
-            imgelink:
-                "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+            imgelink: Product1,
         },
         {
-            imgelink:
-                "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+            imgelink: Product1,
         },
         {
-            imgelink:
-                "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
+            imgelink: Product1,
         },
         {
-            imgelink:
-                "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
+            imgelink: Product1,
         },
     ];
 
     const [active, setActive] = React.useState(
-        "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        Product1,
     );
 
 
     return (
         <div>
             <Navbar />
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 p-20">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                 <div className="">
                     <div className="grid gap-4">
                         <div>
@@ -51,7 +47,7 @@ function ProductOverview() {
                                     <img
                                         onClick={() => setActive(imgelink)}
                                         src={imgelink}
-                                        className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center"
+                                        className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center w-100"
                                         alt="gallery-image"
                                     />
                                 </div>
@@ -67,9 +63,8 @@ function ProductOverview() {
                     <h2 className='text-2xl font-bold text-gray-900 sm:text-4xl mt-5'>Rs 12,000</h2>
                     <p className='text-base text-pretty text-gray-700 sm:text-lg/relaxed mt-5'>Whether you're baking, brewing, or seasoning — let Hansana Ceylon Cinnamon bring purity and tradition to your kitchen.</p>
                     <div class="mt-4 flex gap-4 sm:mt-6">
-                                <Cart cart="Add To Cart" buyNow="Buy Now" url="/orderdetails"/>
-
-                            </div>
+                        <Cart cart="Add To Cart" buyNow="Buy Now" url1="/orderdetails" />
+                    </div>
                 </div>
             </div>
 
