@@ -29,6 +29,9 @@ function RefOrders() {
                             <h1 className="text-2xl font-bold">Orders</h1>
                             <button className="bg-black text-white px-4 py-2 rounded">Generate PDF</button>
                         </header>
+                        <Link to="/createneworder">
+                            <button className='bg-amber-900 mt-5 mb-5 text-white px-4 py-2 rounded'>Create New Order</button>
+                        </Link>
                         <OrderTable
                             ths={["Name", "Phonenumber", "Order Items", "Description", "Location", "Status"]}
                             tds={[
