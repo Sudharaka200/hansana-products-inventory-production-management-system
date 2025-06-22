@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import DashboardBtn from '../../Components/DashboardBtn';
 import Logo from '../../assets/adminLogo.png'
-import OrderTabale from '../../Components/OrderTabale';
+import OrderTable from '../../Components/OrderTabale';
+import Button from '../../Components/Button';
 
 function RefOrders() {
     return (
@@ -28,7 +29,14 @@ function RefOrders() {
                             <h1 className="text-2xl font-bold">Orders</h1>
                             <button className="bg-black text-white px-4 py-2 rounded">Generate PDF</button>
                         </header>
-                        <OrderTabale />
+                        <OrderTable
+                            ths={["Name", "Phonenumber", "Order Items", "Description", "Location", "Status"]}
+                            tds={[
+                                ["Kamal", "073-45687338", "Product 1", "Xxxxxxxxxxxxxx", "Xxxxxxxxxxxxxx", "Xxxxxxxxxxxxxx"],
+                            ]}
+
+                            
+                        />
                     </main>
                     <div>
                     </div>

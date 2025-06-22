@@ -1,32 +1,39 @@
 import React from 'react'
 
-function OrderTabale() {
-    return (
-        <div>
-            <div className="overflow-x-auto">
-                <table className="min-w-full divide-y-2 divide-gray-200">
-                    <thead className="ltr:text-left rtl:text-right">
-                        <tr className="*:font-medium *:text-gray-900">
-                            <th className="px-3 py-2 whitespace-nowrap">Name</th>
-                            <th className="px-3 py-2 whitespace-nowrap">DoB</th>
-                            <th className="px-3 py-2 whitespace-nowrap">Role</th>
-                            <th className="px-3 py-2 whitespace-nowrap">Salary</th>
-                        </tr>
-                    </thead>
+function OrderTable({ ths, tds }) {
+  return (
+    <div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y-2 divide-gray-200">
+          
+          {/* Table Head */}
+          <thead className="text-left bg-gray-100">
+            <tr>
+              {ths.map((th, index) => (
+                <th key={index} className="px-3 py-2 whitespace-nowrap font-medium text-gray-900">
+                  {th}
+                </th>
+              ))}
+            </tr>
+          </thead>
 
-                    <tbody className="divide-y divide-gray-200">
-                        <tr className="*:text-gray-900 *:first:font-medium">
-                            <td className="px-3 py-2 whitespace-nowrap">Nandor the Relentless</td>
-                            <td className="px-3 py-2 whitespace-nowrap">04/06/1262</td>
-                            <td className="px-3 py-2 whitespace-nowrap">Vampire Warrior</td>
-                            <td className="px-3 py-2 whitespace-nowrap">$0</td>
-                        </tr>
+          {/* Table Body */}
+          <tbody className="divide-y divide-gray-200">
+            {tds.map((row, rowIndex) => (
+              <tr key={rowIndex} className="*:text-gray-900 *:first:font-medium">
+                {row.map((cell, cellIndex) => (
+                  <td key={cellIndex} className="px-3 py-2 whitespace-nowrap">
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    )
+        </table>
+      </div>
+    </div>
+  )
 }
 
-export default OrderTabale
+export default OrderTable
