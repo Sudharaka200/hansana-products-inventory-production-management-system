@@ -114,7 +114,7 @@ function Cart(props) {
       <div>
         <button
           onClick={() => setOpen(true)}
-          className="bg-amber-800 text-amber-50 pt-2 pb-2 pl-5 pr-5 rounded font-semibold"
+          className="bg-amber-800 text-amber-50 pt-2 pb-2 pl-5 pr-5 rounded font-semibold" href={props.urlcart}
         >
           {props.cart}
         </button>
