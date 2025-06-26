@@ -1,6 +1,7 @@
 import User from "../Model/Model.js";
 import bcrypt from "bcrypt";
 
+//create user account
 export const registerUser = async (req, res) => {
   try {
     console.log("Received registration request:", req.body);
