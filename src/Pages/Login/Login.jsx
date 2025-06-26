@@ -1,8 +1,33 @@
-import React from 'react'
-import Navbar from '../../Components/Navbar'
+import React, { useState } from "react";
 import Logo from '../../assets/logo.png'
+import Navbar from "../../Components/Navbar";
+import axios from "axios";
 
-function Login() {
+const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/api/users/login", formData);
+      console.log("User logged in:", res.data);
+      setMessage(`✅ Logged in: ID ${res.data.user._id}`);
+    } catch (err) {
+      console.error("Login error:", err.response?.data || err.message);
+      setMessage(err.response?.data?.message || "❌ Failed to login user");
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -17,7 +42,7 @@ function Login() {
             Sign in to your account
           </h2>
         </div>
-
+         {message && <p className="mt-4 text-center text-sm text-red-500">{message}</p>}
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form action="#" method="POST" className="space-y-6">
             <div>
@@ -29,6 +54,7 @@ function Login() {
                   id="email"
                   name="email"
                   type="email"
+                  onChange={handleChange}
                   required
                   autoComplete="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -51,6 +77,7 @@ function Login() {
                 <input
                   id="password"
                   name="password"
+                  onChange={handleChange}
                   type="password"
                   required
                   autoComplete="current-password"
@@ -60,7 +87,7 @@ function Login() {
             </div>
 
             <div>
-              <button
+              <button onClick={handleSubmit}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
