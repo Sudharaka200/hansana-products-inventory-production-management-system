@@ -30,6 +30,39 @@ export const registerUser = async (req, res) => {
   }
 };
 
+//Login User
+export const loginUser = async (req, res) => {
+  try {
+    console.log("Received login request:", req.body);
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      console.log("Validation failed: Missing email or password");
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      console.log("User not found with email:", email);
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      console.log("Invalid password for email:", email);
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    console.log("User logged in successfully:", email);
+    res.status(200).json({ message: "Login successful", user: { email, phonenumber: user.phonenumber, _id: user._id } });
+  } catch (error) {
+    console.error("❌ Login error:", error.message, error.stack);
+    res.status(500).json({ message: "Failed to login user", error: error.message });
+  }
+};
+
+
+
 export const fetch = async (req, res) => {
   try {
     res.json("Hello World");
