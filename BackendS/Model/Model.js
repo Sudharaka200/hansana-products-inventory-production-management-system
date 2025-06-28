@@ -123,10 +123,30 @@ const cartSchema = new mongoose.Schema(
   { collection: "cart" }
 );
 
+//admin Login
+const adminSchema =  new mongoose.Schema(
+  {
+    email:{
+      type: String,
+      required: true,
+    },
+    password:{
+      type: String,
+      required: true,
+    },
+    role:{
+      type: String,
+      required: true,
+    }
+  },
+  { timestamps: true, collection: "admin" }
+)
+
 // MODEL EXPORTS
 const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchema);
 const Cart = mongoose.model("Cart", cartSchema);
 const Order = mongoose.model("Order", orderSchema)
+const Admin = mongoose.model("Admin", adminSchema);
 
-export { User, Product, Cart, Order };
+export { User, Product, Cart, Order, Admin };
