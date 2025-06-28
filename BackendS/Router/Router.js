@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, fetch, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin } from "../Controller/Controller.js";
+import { registerUser, loginUser, fetch, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin } from "../Controller/Controller.js";
 
 const router = express.Router();
 //user
@@ -16,6 +16,8 @@ router.get("/cart", getAllCarts);
 router.post('/orders', createOrder);
 //admin
 router.post("/admin", createAdmin);
+router.post('/login', loginAdmin);
+
 
 
 
