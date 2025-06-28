@@ -1,4 +1,4 @@
-import {User, Product, Cart, Order} from "../Model/Model.js";
+import {User, Product, Cart, Order, Admin} from "../Model/Model.js";
 import bcrypt from "bcrypt";
 
 //create user account
@@ -189,6 +189,25 @@ export const createOrder = async (req, res) => {
     res.status(500).json({ error: 'Server error while creating order' });
   }
 };
+
+//Create admin
+export const createAdmin = async(req, res) => {
+  try{
+    const {
+      email, password, role
+    } = req.body;
+
+    const newAdmin = Admin({
+      email, password, role
+    });
+
+    await newAdmin.save();
+    res.status(201).json({message: "Admin Created Succesfully", admin: newAdmin});
+  }catch(error){
+    console.error("Error Create New Admin", error);
+    res.status(500).json({message:"Server Error"});
+  }
+}
 
 
 
