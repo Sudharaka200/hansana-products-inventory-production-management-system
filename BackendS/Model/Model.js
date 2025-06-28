@@ -71,6 +71,45 @@ const cartItemSchema = new mongoose.Schema({
   quantity: Number,
 });
 
+
+const orderSchema = new mongoose.Schema(
+  {
+    firstname: {
+      type: String,
+      required: true,
+    },
+    lastname: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    streetaddress: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    province: {
+      type: String,
+      required: true,
+    },
+    zipcode: {
+      type: String,
+      required: true,
+    },
+    cartItems: [cartItemSchema], // Embedding cart items here
+  },
+  {
+    timestamps: true,
+    collection: "orders", // Use "orders" unless you're storing this in the "products" collection intentionally
+  }
+);
+
 // MAIN CART SCHEMA
 const cartSchema = new mongoose.Schema(
   {
@@ -88,5 +127,6 @@ const cartSchema = new mongoose.Schema(
 const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchema);
 const Cart = mongoose.model("Cart", cartSchema);
+const Order = mongoose.model("Order", orderSchema)
 
-export { User, Product, Cart };
+export { User, Product, Cart, Order };

@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, fetch, createProduct, getAllProducts, getProductById, saveCart, getAllCarts } from "../Controller/Controller.js";
+import { registerUser, loginUser, fetch, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder } from "../Controller/Controller.js";
 
 const router = express.Router();
 
@@ -13,6 +13,8 @@ router.get("/products/:id", getProductById);
 
 router.post("/cart", saveCart);
 router.get("/cart", getAllCarts);
+
+router.post('/orders', createOrder);
 
 
 
