@@ -58,7 +58,6 @@ function Product() {
                 product={product}
                 cart="Add To Cart"
                 urlcart=""
-                url1="/orderdetails"
                 buyNow="Buy Now"
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}
