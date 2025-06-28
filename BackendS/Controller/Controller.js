@@ -1,4 +1,4 @@
-import User from "../Model/Model.js";
+import {User, Product} from "../Model/Model.js";
 import bcrypt from "bcrypt";
 
 //create user account
@@ -59,6 +59,50 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     console.error("❌ Login error:", error.message, error.stack);
     res.status(500).json({ message: "Failed to login user", error: error.message });
+  }
+};
+
+// Create Product
+export const createProduct = async (req, res) => {
+  try {
+    const {
+      productname,description,price,img1,img2,img3,img4,img5,
+    } = req.body;
+
+    const newProduct = new Product({
+      productname,description,price,img1,img2,img3,img4,img5,
+    });
+
+    await newProduct.save();
+    res.status(201).json({ message: "Product created successfully", product: newProduct });
+  } catch (error) {
+    console.error("Error creating product:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Get all products
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json({ success: true, products });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+// Get product by ID
+export const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product)
+      return res.status(404).json({ success: false, message: "Product not found" });
+
+    res.status(200).json({ success: true, product });
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
