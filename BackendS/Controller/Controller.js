@@ -1,4 +1,4 @@
-import {User, Product} from "../Model/Model.js";
+import {User, Product, Cart} from "../Model/Model.js";
 import bcrypt from "bcrypt";
 
 //create user account
@@ -103,6 +103,52 @@ export const getProductById = async (req, res) => {
   } catch (error) {
     console.error("Error fetching product:", error);
     res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+//add products to cart
+export const saveCart = async (req, res) => {
+  try {
+    const { items, subtotal } = req.body;
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Cart is empty or invalid items format" });
+    }
+
+    if (typeof subtotal !== "number" || subtotal < 0) {
+      return res
+        .status(400)
+        .json({ message: "Subtotal is required and must be a positive number" });
+    }
+
+    const cart = new Cart({
+      items: items.map((item) => ({
+        productId: item._id, // only if available
+        productname: item.productname,
+        img1: item.img1,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      subtotal,
+    });
+
+    const savedCart = await cart.save();
+    res.status(201).json(savedCart);
+  } catch (error) {
+    console.error("Save cart error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getAllCarts = async (req, res) => {
+  try {
+    const carts = await Cart.find();
+    res.status(200).json(carts);
+  } catch (error) {
+    console.error("Error fetching carts:", error.message);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 

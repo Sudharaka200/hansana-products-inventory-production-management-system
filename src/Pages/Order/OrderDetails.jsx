@@ -1,17 +1,69 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../../Components/Navbar'
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
-import OrderDetailsImg from '../../assets/753102e0-88a8-4f63-9142-23d0387b2766.png'
 
 function OrderDetails() {
-    return (
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    country: 'United States',
+    streetAddress: '',
+    city: '',
+    region: '',
+    postalCode: '',
+  })
+
+  const [cartData, setCartData] = useState(null)
+  const [quantities, setQuantities] = useState({})
+
+  // Fetch cart data
+  useEffect(() => {
+    fetch('http://localhost:8000/api/cart')
+      .then((res) => res.json())
+      .then((data) => {
+        const cart = Array.isArray(data) ? data[0] : data // for safety
+        setCartData(cart)
+
+        const initialQuantities = {}
+        cart?.items.forEach((item, index) => {
+          initialQuantities[`line${index}`] = item.quantity
+        })
+        setQuantities(initialQuantities)
+      })
+      .catch((err) => console.error('Error fetching cart:', err))
+  }, [])
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleQuantityChange = (e, key) => {
+    const value = parseInt(e.target.value)
+    if (value < 1) return
+    setQuantities((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('Form Data:', formData)
+    console.log('Updated Quantities:', quantities)
+  }
+
+  const handleRemoveItem = (key) => {
+    setQuantities((prev) => ({ ...prev, [key]: 0 }))
+  }
+
+  return (
+    <div>
+      <Navbar />
+
+      {/* Layout grid */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 p-20">
+        {/* Order Form */}
         <div>
-            <Navbar />
-            {/* Form */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 p-20">
-                <div className="">
-                    <form>
+          <form>
                         <div className="space-y-12">
                             
                             <div className="border-b border-gray-900/10 pb-12">
@@ -162,18 +214,83 @@ function OrderDetails() {
                             </a>
                         </div>
                     </form>
-
-                </div>
-                {/* Form */}
-
-                {/* Image */}
-                <div className="">
-                    <img src={OrderDetailsImg} alt="" />
-                </div>
-                {/* Image */}
-            </div>
         </div>
-    )
+
+        {/* Cart Items Section */}
+        <div>
+          <section>
+            <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+              <div className="mx-auto max-w-3xl">
+                <header className="text-center">
+                  <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Products</h1>
+                </header>
+
+                {!cartData ? (
+                  <p className="mt-8 text-center text-gray-500">Loading cart...</p>
+                ) : (
+                  <div className="mt-8">
+                    <ul className="space-y-4">
+                      {cartData.items.map((item, index) => {
+                        const key = `line${index}`
+                        if (quantities[key] === 0) return null // hide removed
+                        return (
+                          <li key={item.productId} className="flex items-center gap-4">
+                            <img
+                              src={item.img1}
+                              alt={item.productname}
+                              className="size-16 rounded-sm object-cover"
+                            />
+                            <div>
+                              <h3 className="text-sm text-gray-900">{item.productname}</h3>
+                              <p className="text-xs text-gray-600">Price: ${item.price}</p>
+                            </div>
+
+                            <div className="flex flex-1 items-center justify-end gap-2">
+                              <input
+                                type="number"
+                                min="1"
+                                value={quantities[key] || 1}
+                                onChange={(e) => handleQuantityChange(e, key)}
+                                className="h-8 w-12 rounded-sm border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600"
+                              />
+                              <button
+                                className="text-gray-600 hover:text-red-600"
+                                type="button"
+                                onClick={() => handleRemoveItem(key)}
+                              >
+                                <span className="sr-only">Remove item</span>
+                                ❌
+                              </button>
+                            </div>
+                          </li>
+                        )
+                      })}
+                    </ul>
+
+                    {/* Totals */}
+                    <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
+                      <div className="w-screen max-w-lg space-y-4">
+                        <dl className="space-y-0.5 text-sm text-gray-700">
+                          <div className="flex justify-between">
+                            <dt>Subtotal</dt>
+                            <dd>${cartData.subtotal.toFixed(2)}</dd>
+                          </div>
+                          <div className="flex justify-between !text-base font-medium">
+                            <dt>Total</dt>
+                            <dd>${(cartData.subtotal * 1.1).toFixed(2)} (10% tax included)</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default OrderDetails
