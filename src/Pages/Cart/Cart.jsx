@@ -1,19 +1,58 @@
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-export default function Cart(props) {
+export default function Cart({
+  product = {},
+  cart = 'Add to Cart',
+  buyNow = 'Buy Now',
+  url1 = '/orderdetails',
+  cartItems = [],
+  onAddToCart,
+  onRemoveFromCart,
+}) {
   const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
 
   const handleAddToCart = () => {
-    if (props.onAddToCart) {
-      props.onAddToCart(props.product)
+    if (onAddToCart && product) {
+      onAddToCart(product)
     }
     setOpen(true)
   }
 
-  const subtotal = (props.cartItems || []).reduce(
+  const handleRemove = (productId) => {
+    if (onRemoveFromCart) {
+      onRemoveFromCart(productId)
+    }
+  }
+
+  const handleBuyNow = async () => {
+    if (cartItems.length === 0) return
+
+    try {
+      const subtotal = cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      )
+
+      const response = await axios.post('http://localhost:8000/api/cart', {
+        items: cartItems,
+        subtotal, // changed from `total` to `subtotal` for consistency
+      })
+
+      console.log('Order saved:', response.data)
+      setOpen(false)
+      navigate(url1)
+    } catch (error) {
+      console.error('Error saving order:', error)
+      alert('Failed to save order. Please try again.')
+    }
+  }
+
+  const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   )
@@ -24,7 +63,7 @@ export default function Cart(props) {
         onClick={handleAddToCart}
         className="bg-amber-800 text-white py-2 px-5 rounded font-semibold"
       >
-        {props.cart}
+        {cart}
       </button>
 
       <Transition.Root show={open} as={Fragment}>
@@ -74,27 +113,27 @@ export default function Cart(props) {
 
                         <div className="mt-8">
                           <div className="flow-root">
-                            <ul role="list" className="-my-6 divide-y divide-gray-200">
-                              {(props.cartItems || []).map((product) => (
-                                <li key={product.id} className="flex py-6">
+                            <ul className="-my-6 divide-y divide-gray-200">
+                              {cartItems.map((item, index) => (
+                                <li key={item._id || item.id || index} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
-                                      src={product.imageSrc || product.img1}
-                                      alt={product.productname}
+                                      src={item.img1}
+                                      alt={item.productname}
                                       className="h-full w-full object-cover object-center"
                                     />
                                   </div>
                                   <div className="ml-4 flex flex-1 flex-col">
                                     <div className="flex justify-between text-base font-medium text-gray-900">
-                                      <h3>{product.name || product.productname}</h3>
-                                      <p className="ml-4">${product.price}</p>
+                                      <h3>{item.productname}</h3>
+                                      <p className="ml-4">Rs {item.price}</p>
                                     </div>
                                     <div className="flex flex-1 items-end justify-between text-sm">
-                                      <p className="text-gray-500">Qty {product.quantity}</p>
+                                      <p className="text-gray-500">Qty: {item.quantity}</p>
                                       <div className="flex">
                                         <button
-                                          type="button"
-                                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                                          onClick={() => handleRemove(item._id || item.id)}
+                                          className="font-medium text-red-600 hover:text-red-500"
                                         >
                                           Remove
                                         </button>
@@ -111,29 +150,28 @@ export default function Cart(props) {
                       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                         <div className="flex justify-between text-base font-medium text-gray-900">
                           <p>Subtotal</p>
-                          <p>${subtotal.toFixed(2)}</p>
+                          <p>Rs {subtotal.toLocaleString()}</p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">
                           Shipping and taxes calculated at checkout.
                         </p>
                         <div className="mt-6">
-                          <Link
-                            to={props.url1 || '/orderdetails'}
-                            className="flex items-center justify-center rounded-md border border-transparent bg-amber-800 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-amber-700"
+                          <button
+                            onClick={handleBuyNow}
+                            className="flex w-full items-center justify-center rounded-md border border-transparent bg-amber-800 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-amber-700"
                           >
-                            {props.buyNow}
-                          </Link>
+                            {buyNow}
+                          </button>
                         </div>
-                        <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                        <div className="mt-6 flex justify-center text-sm text-gray-500">
                           <p>
                             or{' '}
                             <button
                               type="button"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
                               onClick={() => setOpen(false)}
+                              className="font-medium text-indigo-600 hover:text-indigo-500"
                             >
-                              Continue Shopping
-                              <span aria-hidden="true"> →</span>
+                              Continue Shopping →
                             </button>
                           </p>
                         </div>

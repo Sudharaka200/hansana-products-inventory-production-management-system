@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// USER SCHEMA
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -19,45 +20,73 @@ const userSchema = new mongoose.Schema(
   { timestamps: true, collection: "users" }
 );
 
-
+// PRODUCT SCHEMA
 const productSchema = new mongoose.Schema(
   {
     productname: {
       type: String,
-      required : true,
+      required: true,
     },
     description: {
       type: String,
-      required : true,
+      required: true,
     },
     price: {
       type: Number,
-      required : true,
+      required: true,
     },
     img1: {
       type: String,
-      required : true,
+      required: true,
     },
     img2: {
       type: String,
-      required : true,
+      required: true,
     },
     img3: {
       type: String,
-      required : true,
+      required: true,
     },
     img4: {
       type: String,
-      required : true,
+      required: true,
     },
     img5: {
       type: String,
-      required : true,
+      required: true,
     },
-  }
-)
+  },
+  { timestamps: true, collection: "products" }
+);
 
+// CART ITEM SCHEMA (used inside Cart)
+const cartItemSchema = new mongoose.Schema({
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  },
+  productname: String,
+  img1: String,
+  price: Number,
+  quantity: Number,
+});
+
+// MAIN CART SCHEMA
+const cartSchema = new mongoose.Schema(
+  {
+    items: [cartItemSchema],
+    subtotal: Number,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { collection: "cart" }
+);
+
+// MODEL EXPORTS
 const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchema);
+const Cart = mongoose.model("Cart", cartSchema);
 
-export { User, Product };
+export { User, Product, Cart };
