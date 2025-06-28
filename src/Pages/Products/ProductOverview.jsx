@@ -5,9 +5,10 @@ import Navbar from '../../Components/Navbar'
 import Cart from '../Cart/Cart'
 
 function ProductOverview() {
-  const { id } = useParams() // ✅ get ID from URL
+  const { id } = useParams()
   const [product, setProduct] = useState(null)
   const [active, setActive] = useState("")
+  const [cartItems, setCartItems] = useState([])
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -23,6 +24,22 @@ function ProductOverview() {
     fetchProduct()
   }, [id])
 
+  // 🔹 Add product to cart
+  const handleAddToCart = (product) => {
+    const existing = cartItems.find(item => item._id === product._id)
+    if (existing) {
+      // Increase quantity if already in cart
+      setCartItems(cartItems.map(item =>
+        item._id === product._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ))
+    } else {
+      // Add new item
+      setCartItems([...cartItems, { ...product, quantity: 1 }])
+    }
+  }
+
   if (!product) return <div className="text-center mt-20">Loading product...</div>
 
   const imageArray = [product.img1, product.img2, product.img3, product.img4, product.img5]
@@ -31,7 +48,7 @@ function ProductOverview() {
     <div>
       <Navbar />
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        {/* Left: Image Section */}
+        {/* Left: Images */}
         <div>
           <div className="grid gap-4">
             <div>
@@ -56,16 +73,25 @@ function ProductOverview() {
           </div>
         </div>
 
-        {/* Right: Details Section */}
+        {/* Right: Details */}
         <div>
           <h1 className="text-4xl font-bold text-gray-900 sm:text-4xl">{product.productname}</h1>
-          <p className="text-base text-pretty text-gray-700 sm:text-lg/relaxed mt-5">{product.description}</p>
-          <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl mt-5">Rs {product.price.toLocaleString()}</h2>
-          <p className="text-base text-pretty text-gray-700 sm:text-lg/relaxed mt-5">
+          <p className="text-base text-gray-700 mt-5">{product.description}</p>
+          <h2 className="text-2xl font-bold text-gray-900 mt-5">Rs {product.price.toLocaleString()}</h2>
+          <p className="text-base text-gray-700 mt-5">
             Whether you're baking, brewing, or seasoning — let Hansana {product.productname} bring purity and tradition to your kitchen.
           </p>
+
+          {/* Cart Button */}
           <div className="mt-4 flex gap-4 sm:mt-6">
-            <Cart product={product} cart="Add To Cart" buyNow="Buy Now" url1="/orderdetails" />
+            <Cart
+              product={product}
+              cart="Add To Cart"
+              buyNow="Buy Now"
+              onAddToCart={handleAddToCart}
+              cartItems={cartItems}
+              url1="/orderdetails"
+            />
           </div>
         </div>
       </div>
