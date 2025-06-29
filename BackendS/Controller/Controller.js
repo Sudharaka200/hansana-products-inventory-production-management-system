@@ -1,4 +1,4 @@
-import {User, Product, Cart} from "../Model/Model.js";
+import {User, Product, Cart, Order, Admin} from "../Model/Model.js";
 import bcrypt from "bcrypt";
 
 //create user account
@@ -142,6 +142,7 @@ export const saveCart = async (req, res) => {
   }
 };
 
+//display cart details
 export const getAllCarts = async (req, res) => {
   try {
     const carts = await Cart.find();
@@ -149,6 +150,92 @@ export const getAllCarts = async (req, res) => {
   } catch (error) {
     console.error("Error fetching carts:", error.message);
     res.status(500).json({ message: "Server Error" });
+  }
+};
+
+//Order details
+export const createOrder = async (req, res) => {
+  try {
+    const {
+      firstname,
+      lastname,
+      email,
+      streetaddress,
+      city,
+      province,
+      zipcode,
+      cartItems,
+    } = req.body;
+
+    if (!cartItems || cartItems.length === 0) {
+      return res.status(400).json({ error: 'Cart items cannot be empty' });
+    }
+
+    const newOrder = new Order({
+      firstname,
+      lastname,
+      email,
+      streetaddress,
+      city,
+      province,
+      zipcode,
+      cartItems,
+    });
+
+    const savedOrder = await newOrder.save();
+    res.status(201).json(savedOrder);
+  } catch (err) {
+    console.error('Order creation error:', err);
+    res.status(500).json({ error: 'Server error while creating order' });
+  }
+};
+
+//Create admin
+export const createAdmin = async(req, res) => {
+  try{
+    const {
+      email, password, role
+    } = req.body;
+
+    const newAdmin = Admin({
+      email, password, role
+    });
+
+    await newAdmin.save();
+    res.status(201).json({message: "Admin Created Succesfully", admin: newAdmin});
+  }catch(error){
+    console.error("Error Create New Admin", error);
+    res.status(500).json({message:"Server Error"});
+  }
+}
+
+// POST /api/admin/login
+export const loginAdmin = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) {
+      return res.status(404).json({ success: false, message: 'Admin not found' });
+    }
+
+    if (admin.password !== password) {
+      return res.status(401).json({ success: false, message: 'Incorrect password' });
+    }
+
+    // Successful login
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      user: {
+        email: admin.email,
+        role: admin.role,
+      },
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 

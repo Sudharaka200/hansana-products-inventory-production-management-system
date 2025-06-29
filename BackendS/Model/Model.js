@@ -71,6 +71,45 @@ const cartItemSchema = new mongoose.Schema({
   quantity: Number,
 });
 
+
+const orderSchema = new mongoose.Schema(
+  {
+    firstname: {
+      type: String,
+      required: true,
+    },
+    lastname: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    streetaddress: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    province: {
+      type: String,
+      required: true,
+    },
+    zipcode: {
+      type: String,
+      required: true,
+    },
+    cartItems: [cartItemSchema], // Embedding cart items here
+  },
+  {
+    timestamps: true,
+    collection: "orders", // Use "orders" unless you're storing this in the "products" collection intentionally
+  }
+);
+
 // MAIN CART SCHEMA
 const cartSchema = new mongoose.Schema(
   {
@@ -84,9 +123,30 @@ const cartSchema = new mongoose.Schema(
   { collection: "cart" }
 );
 
+//admin Login
+const adminSchema =  new mongoose.Schema(
+  {
+    email:{
+      type: String,
+      required: true,
+    },
+    password:{
+      type: String,
+      required: true,
+    },
+    role:{
+      type: String,
+      required: true,
+    }
+  },
+  { timestamps: true, collection: "admin" }
+)
+
 // MODEL EXPORTS
 const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchema);
 const Cart = mongoose.model("Cart", cartSchema);
+const Order = mongoose.model("Order", orderSchema)
+const Admin = mongoose.model("Admin", adminSchema);
 
-export { User, Product, Cart };
+export { User, Product, Cart, Order, Admin };
