@@ -37,6 +37,9 @@ function ProductAdmin() {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <Link to={"/addnewproduct"} >
+            <button className='bg-green-500 pt-2 pb-2 pl-5 pr-5 text-white rounded'>Add New Product</button>
+        </Link>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product._id} className="group relative border p-4 rounded-md shadow-sm">
@@ -52,7 +55,8 @@ function ProductAdmin() {
                 </div>
                 <p className="text-sm font-medium text-gray-900">Rs {product.price.toLocaleString()}</p>
               </div>
-
+                <button className='bg-green-700 pt-2 pb-2 pl-5 pr-5 rounded text-white'>Edit</button>
+                <button className='bg-red-700 pt-2 pb-2 pl-5 pr-5 rounded text-white ml-1'>Delete</button>
               <div className="mt-4">
               </div>
             </div>
