@@ -102,6 +102,11 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      required: true,
+      default: "Pending",
+    },
     cartItems: [cartItemSchema], // Embedding cart items here
   },
   {

@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, fetch, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin, getAllOrders } from "../Controller/Controller.js";
+import { registerUser, loginUser, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin, getAllOrders, getPendingOrders, updateOrderStatus } from "../Controller/Controller.js";
 
 const router = express.Router();
 //user
@@ -19,6 +19,10 @@ router.post("/admin", createAdmin);
 router.post('/login', loginAdmin);
 //ref
 router.get("/orders", getAllOrders);
+//Truck
+router.get("/pending", getPendingOrders);
+router.put("/orders/status/:id", updateOrderStatus);
+
 
 
 
