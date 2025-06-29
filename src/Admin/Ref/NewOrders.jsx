@@ -5,6 +5,7 @@ import Logo from '../../assets/adminLogo.png'
 import OrderTable from '../../Components/OrderTabale';
 import Button from '../../Components/Button';
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
+import Product from '../../Components/Product';
 
 
 function NewOrders() {
@@ -31,7 +32,7 @@ function NewOrders() {
                             <h1 className="text-2xl font-bold">Create New Order</h1>
                         </header>
                         <div className='pl-10 pr-10'>
-                            <form>
+                            {/* <form>
                                 <div className="space-y-12">
 
                                     <div className="border-b border-gray-900/10 pb-12">
@@ -157,7 +158,11 @@ function NewOrders() {
                                         Confirm Order
                                     </button>
                                 </div>
-                            </form>
+                            </form> */}
+                            <div>
+                                <h1>select Products</h1>
+                                <Product />
+                            </div>
                         </div>
                     </main>
                     <div>
