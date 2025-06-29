@@ -249,12 +249,33 @@ export const getAllOrders = async (req, res) => {
   }
 }
 
-
-export const fetch = async (req, res) => {
+// Get all pending orders
+export const getPendingOrders = async (req, res) => {
   try {
-    res.json("Hello World");
+    const pendingOrders = await Order.find({ status: "Pending" }).sort({ createdAt: -1 });
+    res.status(200).json(pendingOrders);
   } catch (error) {
-    console.error("❌ Fetch error:", error.message, error.stack);
-    res.status(500).json({ message: "Failed to fetch", error: error.message });
+    console.error("Error fetching pending orders:", error);
+    res.status(500).json({ message: "Server error fetching pending orders" });
+  }
+};
+
+//status update success
+export const updateOrderStatus = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      id,
+      { status: "Success" },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json({ message: "Order status updated", order: updatedOrder });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
   }
 };
