@@ -260,6 +260,23 @@ export const getPendingOrders = async (req, res) => {
   }
 };
 
+//Get all success and fail orders
+export const getSuccessfailOrders = async (req, res) => {
+  try {
+    const successfailOrders = await Order.find({
+      $or: [
+        { status: "Success" },
+        { status: "Fail" }
+      ]
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json(successfailOrders);
+  } catch (error) {
+    console.error("Error fetching success/fail orders:", error);
+    res.status(500).json({ message: "Server error fetching success/fail orders" });
+  }
+};
+
 //status update success
 export const updateOrderStatus = async (req, res) => {
   const { id } = req.params;
@@ -277,5 +294,31 @@ export const updateOrderStatus = async (req, res) => {
     res.status(200).json({ message: "Order status updated", order: updatedOrder });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
+  }
+};
+
+// Update order status to 'Fail'
+export const failOrder = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+
+    // Find order by ID and update the status
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { status: "Fail" },
+      { new: true } // return updated document
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json({
+      message: "Order status updated to Fail",
+      order: updatedOrder,
+    });
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };

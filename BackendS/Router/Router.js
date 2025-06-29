@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin, getAllOrders, getPendingOrders, updateOrderStatus } from "../Controller/Controller.js";
+import { registerUser, loginUser, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin, getAllOrders, getPendingOrders, updateOrderStatus, failOrder, getSuccessfailOrders } from "../Controller/Controller.js";
 
 const router = express.Router();
 //user
@@ -22,6 +22,8 @@ router.get("/orders", getAllOrders);
 //Truck
 router.get("/pending", getPendingOrders);
 router.put("/orders/status/:id", updateOrderStatus);
+router.put("/fail/:id", failOrder);
+router.get("/successfailOrders", getSuccessfailOrders);
 
 
 
