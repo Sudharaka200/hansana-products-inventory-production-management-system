@@ -26,6 +26,7 @@ import ProductOrder from './Admin/ProductManager/ProductOrder.jsx'
 import ProductHistory from './Admin/ProductManager/ProductOrderHistory.jsx'
 import NewOrders from './Admin/Ref/NewOrders.jsx';
 import AddNewProduct from './Admin/ProductManager/AddNewProduct.jsx';
+import EditAdminProduct from './Admin/ProductManager/EditAdminProduct.jsx';
 
 
 const router = createBrowserRouter([
@@ -128,6 +129,10 @@ const router = createBrowserRouter([
 {
   path:"/addnewproduct",
   element: <AddNewProduct />
+},
+{
+  path:"/editproduct/:id",
+  element: <EditAdminProduct />
 }
 
 

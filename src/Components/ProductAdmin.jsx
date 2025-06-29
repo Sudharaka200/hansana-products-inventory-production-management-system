@@ -55,7 +55,9 @@ function ProductAdmin() {
                 </div>
                 <p className="text-sm font-medium text-gray-900">Rs {product.price.toLocaleString()}</p>
               </div>
-                <button className='bg-green-700 pt-2 pb-2 pl-5 pr-5 rounded text-white'>Edit</button>
+                <Link to={`/editproduct/${product._id}`}>
+                    <a  className='bg-green-700 pt-2 pb-2 pl-5 pr-5 rounded text-white'>Edit</a>
+                </Link>
                 <button className='bg-red-700 pt-2 pb-2 pl-5 pr-5 rounded text-white ml-1'>Delete</button>
               <div className="mt-4">
               </div>

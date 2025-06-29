@@ -81,6 +81,54 @@ export const createProduct = async (req, res) => {
   }
 };
 
+// Update Product
+export const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Destructure fields from request body
+    const {
+      productname,
+      description,
+      price,
+      img1,
+      img2,
+      img3,
+      img4,
+      img5,
+    } = req.body;
+
+    // Find and update product
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      {
+        productname,
+        description,
+        price,
+        img1,
+        img2,
+        img3,
+        img4,
+        img5,
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json({
+      message: "Product updated successfully",
+      product: updatedProduct,
+    });
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
 // Get all products
 export const getAllProducts = async (req, res) => {
   try {
