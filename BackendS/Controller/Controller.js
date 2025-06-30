@@ -421,3 +421,56 @@ export const failOrder = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+//Add Reviews
+export const addReview = async (req, res) => {
+  const { productId } = req.params;
+  const { rating, comment, user } = req.body;
+
+  if (!rating || !comment || !user) {
+    return res.status(400).json({ message: 'Rating, comment, and user are required' });
+  }
+
+  try {
+    const product = await Product.findById(productId);
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+
+    // Optional: prevent duplicate reviews by same user
+    const alreadyReviewed = product.reviews.find(r => r.user === user);
+    if (alreadyReviewed) {
+      return res.status(400).json({ message: 'You have already reviewed this product' });
+    }
+
+    // Add review
+    product.reviews.push({ rating: Number(rating), comment, user });
+
+    // Update rating statistics
+    product.numReviews = product.reviews.length;
+    product.rating = (
+      product.reviews.reduce((acc, item) => acc + item.rating, 0) / product.numReviews
+    ).toFixed(1);
+
+    await product.save();
+
+    res.status(201).json({ message: 'Review added successfully', reviews: product.reviews });
+  } catch (err) {
+    console.error('Error in addReview:', err);
+    res.status(500).json({ error: 'Server error', details: err.message });
+  }
+};
+
+// Get reviews for a product
+export const getReviews = async (req, res) => {
+  const { productId } = req.params;
+
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ reviews: product.reviews || [] }); // Wrap in an object
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

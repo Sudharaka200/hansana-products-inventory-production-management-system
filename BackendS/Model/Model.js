@@ -21,6 +21,13 @@ const userSchema = new mongoose.Schema(
 );
 
 // PRODUCT SCHEMA
+const reviewSchema = new mongoose.Schema({
+  user: { type: String, required: true }, // or ref to User
+  rating: { type: Number, required: true, min: 1, max: 5 },
+  comment: { type: String, required: true },
+  date: { type: Date, default: Date.now }
+});
+
 const productSchema = new mongoose.Schema(
   {
     productname: {
@@ -35,29 +42,17 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    img1: {
-      type: String,
-      required: true,
-    },
-    img2: {
-      type: String,
-      required: true,
-    },
-    img3: {
-      type: String,
-      required: true,
-    },
-    img4: {
-      type: String,
-      required: true,
-    },
-    img5: {
-      type: String,
-      required: true,
-    },
+    img1: { type: String, required: true },
+    img2: { type: String, required: true },
+    img3: { type: String, required: true },
+    img4: { type: String, required: true },
+    img5: { type: String, required: true },
+
+    reviews: [reviewSchema],
   },
-  { timestamps: true, collection: "products" }
+  { timestamps: true, collection: 'products' }
 );
+
 
 // CART ITEM SCHEMA (used inside Cart)
 const cartItemSchema = new mongoose.Schema({
