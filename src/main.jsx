@@ -28,6 +28,7 @@ import NewOrders from './Admin/Ref/NewOrders.jsx';
 import AddNewProduct from './Admin/ProductManager/AddNewProduct.jsx';
 import EditAdminProduct from './Admin/ProductManager/EditAdminProduct.jsx';
 import Payment from './Pages/Payment/Payment.jsx';
+import Profile from './Pages/Profile/Profile.jsx';
 
 
 const router = createBrowserRouter([
@@ -138,6 +139,10 @@ const router = createBrowserRouter([
 {
   path:"/payment",
   element: <Payment />
+},
+{
+  path:"/profile",
+  element: <Profile />
 }
 
 

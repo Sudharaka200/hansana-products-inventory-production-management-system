@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin, getAllOrders, getPendingOrders, updateOrderStatus, failOrder, getSuccessfailOrders, updateProduct, deleteProduct } from "../Controller/Controller.js";
+import { registerUser, loginUser, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin, getAllOrders, getPendingOrders, updateOrderStatus, failOrder, getSuccessfailOrders, updateProduct, deleteProduct, getPendingOrdersByEmail, getSuccessOrdersByEmail } from "../Controller/Controller.js";
 
 const router = express.Router();
 //user
@@ -16,6 +16,9 @@ router.delete("/:id", deleteProduct);
 router.post("/cart", saveCart);
 router.get("/cart", getAllCarts);
 router.post('/orders', createOrder);
+router.get('/pendingOrdersByEmail', getPendingOrdersByEmail)
+router.get("/successOrdersByEmail", getSuccessOrdersByEmail);
+
 //admin
 router.post("/admin", createAdmin);
 router.post('/login', loginAdmin);

@@ -318,6 +318,24 @@ export const getPendingOrders = async (req, res) => {
   }
 };
 
+// GET /api/pending?email=user@example.com
+export const getPendingOrdersByEmail = async (req, res) => {
+  const { email } = req.query;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  try {
+    const pendingOrders = await Order.find({ email, status: "Pending" }).sort({ createdAt: -1 });
+    res.status(200).json(pendingOrders);
+  } catch (error) {
+    console.error("Error fetching pending orders by email:", error);
+    res.status(500).json({ message: "Server error fetching pending orders" });
+  }
+};
+
+
 //Get all success and fail orders
 export const getSuccessfailOrders = async (req, res) => {
   try {
@@ -334,6 +352,29 @@ export const getSuccessfailOrders = async (req, res) => {
     res.status(500).json({ message: "Server error fetching success/fail orders" });
   }
 };
+
+// Get all success orders by user email
+export const getSuccessOrdersByEmail = async (req, res) => {
+  const { email } = req.query;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  try {
+    const successOrders = await Order.find({
+      email,
+      status: "Success"
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json(successOrders);
+  } catch (error) {
+    console.error("Error fetching success orders:", error);
+    res.status(500).json({ message: "Server error fetching success orders" });
+  }
+};
+
+
 
 //status update success
 export const updateOrderStatus = async (req, res) => {

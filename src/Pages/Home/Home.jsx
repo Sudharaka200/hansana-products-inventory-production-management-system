@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../../Components/Navbar'
 import Banner from '../../Components/Banner'
 import Titles from '../../Components/titles'
@@ -13,11 +13,28 @@ import BottomImageGallery from '../../Components/BottomImageGallery'
 import Footer from '../../Components/Footer'
 
 function Home() {
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      setUserEmail(storedEmail);
+    }
+  }, []);
+
   return (
     <div>
       {/* Navbar */}
       <Navbar />
       {/* Navbar */}
+
+      {/* User greeting */}
+      {userEmail && (
+        <div className="text-center mt-4 text-lg text-gray-700">
+          👋 Welcome back, <span className="font-semibold">{userEmail}</span>
+        </div>
+      )}
+      {/* User greeting */}
 
       {/* Banner */}
       <Banner img={BannerImg1} bannerTitle="Hansana Product - Where Heritage Meets Quality" bannerP="Authentic, Artisan-Made Goods That Celebrate Nature, Wellness, and Tradition" button1="Get Started" button2="Learn More" />
@@ -27,10 +44,10 @@ function Home() {
       <Titles mainTitle="Welcome to Hansana Product " secondTitle="Where Quality Meets Affordability" />
       <div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-          <div className="">
+          <div>
             <ImageGallery />
           </div>
-          <div className="">
+          <div>
             <TextSection title="Crafted with Care, Rooted in Tradition" text="At Hansana Product, we believe that every item tells a story — a story rooted in passion, tradition, and craftsmanship. We are more than just a brand; we are a movement dedicated to preserving the rich heritage, natural beauty, and cultural essence of our land. Each product we offer is thoughtfully created with love and care by skilled local artisans, farmers, and wellness experts who have inherited their knowledge through generations.
           From natural wellness items and handmade crafts to organic foods and traditional skincare, our collections reflect a deep respect for nature and a commitment to purity and quality. We source ingredients and materials locally, ensuring they are sustainably grown and ethically harvested. This not only supports the local economy but also promotes environmentally responsible practices that benefit both people and the planet.
           What sets Hansana Product apart is our dedication to authenticity. We blend age-old traditions with modern standards of excellence, creating goods that are as effective as they are meaningful. Whether it’s a herbal balm made with ancient formulas or a handcrafted basket woven with traditional techniques, every item in our store has a soul — a connection to real people, real stories, and real impact.
@@ -53,12 +70,12 @@ function Home() {
       <Titles mainTitle="Our Story" secondTitle="Rooted in Passion, Grown with Purpose" />
       <div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-          <div className="">
+          <div>
             <TextSection title="Hansana Product – Heritage Meets Quality" text="At Hansana Product, we believe in delivering more than just goods — we bring you a story of passion, tradition, and excellence. Our carefully crafted products reflect the rich heritage and natural beauty of our land, made with love and dedication by local artisans and experts.
                                 Whether you're looking for [natural wellness items, handmade crafts, organic foods, or traditional skincare], Hansana Product offers a blend of authenticity and modern quality you can trust.
                                 Explore our collections, feel the difference, and be part of our journey toward sustainable living and community empowerment."/>
           </div>
-          <div className="">
+          <div>
             <img src={OurStoryImg1} className='w-100' alt="" />
           </div>
         </div>
@@ -66,17 +83,16 @@ function Home() {
 
       <div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-          <div className="">
+          <div>
             <img src={OurStoryImg2} className='w-100' alt="" />
           </div>
-          <div className="">
+          <div>
             <TextSection title="Rooted in Heritage, Crafted for Today" text="At Hansana Product, we believe in delivering more than just goods — we bring you a story of passion, tradition, and excellence. Our carefully crafted products reflect the rich heritage and natural beauty of our land, made with love and dedication by local artisans and experts.
                                 Whether you're looking for [natural wellness items, handmade crafts, organic foods, or traditional skincare], Hansana Product offers a blend of authenticity and modern quality you can trust.
                                 Explore our collections, feel the difference, and be part of our journey toward sustainable living and community empowerment."/>
           </div>
         </div>
       </div>
-
       {/* Our Story Section */}
 
       {/* Gallery */}
@@ -87,10 +103,6 @@ function Home() {
       {/* Footer */}
       <Footer />
       {/* Footer */}
-
-
-
-
     </div>
   )
 }
