@@ -1,5 +1,8 @@
 import express from "express";
 import { registerUser, loginUser, createProduct, getAllProducts, getProductById, saveCart, getAllCarts, createOrder, createAdmin, loginAdmin, getAllOrders, getPendingOrders, updateOrderStatus, failOrder, getSuccessfailOrders, updateProduct, deleteProduct, getPendingOrdersByEmail, getSuccessOrdersByEmail } from "../Controller/Controller.js";
+import * as productController from '../Controller/Controller.js';
+
+
 
 const router = express.Router();
 //user
@@ -29,6 +32,11 @@ router.get("/pending", getPendingOrders);
 router.put("/orders/status/:id", updateOrderStatus);
 router.put("/fail/:id", failOrder);
 router.get("/successfailOrders", getSuccessfailOrders);
+
+// Add review
+router.post('/products/:productId/reviews', productController.addReview);
+// Get reviews
+router.get('/products/:productId/reviews', productController.getReviews);
 
 
 

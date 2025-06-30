@@ -29,17 +29,18 @@ function Home() {
       {/* Navbar */}
 
       {/* User greeting */}
-      {userEmail && (
-        <div className="text-center mt-4 text-lg text-gray-700">
-          👋 Welcome back, <span className="font-semibold">{userEmail}</span>
-        </div>
-      )}
+
       {/* User greeting */}
 
       {/* Banner */}
       <Banner img={BannerImg1} bannerTitle="Hansana Product - Where Heritage Meets Quality" bannerP="Authentic, Artisan-Made Goods That Celebrate Nature, Wellness, and Tradition" button1="Get Started" button2="Learn More" />
       {/* Banner */}
 
+      {userEmail && (
+        <div className="text-center mt-4 text-lg text-gray-700">
+          Hello, <span className="font-semibold">{userEmail}</span>
+        </div>
+      )}
       {/* Hellow Section */}
       <Titles mainTitle="Welcome to Hansana Product " secondTitle="Where Quality Meets Affordability" />
       <div>
