@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../../Components/Navbar'
-import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useNavigate } from 'react-router-dom'
-
+import { Radio } from "@material-tailwind/react";
 
 function OrderDetails() {
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -13,62 +13,67 @@ function OrderDetails() {
     city: '',
     region: '',
     postalCode: '',
-  })
-  const navigate = useNavigate();
+  });
 
-  const [cartData, setCartData] = useState(null)
-  const [quantities, setQuantities] = useState({})
+  const navigate = useNavigate();
+  const [cartData, setCartData] = useState(null);
+  const [quantities, setQuantities] = useState({});
 
   // Fetch cart data
   useEffect(() => {
     fetch('http://localhost:8000/api/cart')
       .then((res) => res.json())
       .then((data) => {
-        const cart = Array.isArray(data) ? data[0] : data
-        setCartData(cart)
+        const cart = Array.isArray(data) ? data[0] : data;
+        setCartData(cart);
 
-        const initialQuantities = {}
+        const initialQuantities = {};
         cart?.items.forEach((item, index) => {
-          initialQuantities[`line${index}`] = item.quantity
-        })
-        setQuantities(initialQuantities)
+          initialQuantities[`line${index}`] = item.quantity;
+        });
+        setQuantities(initialQuantities);
       })
-      .catch((err) => console.error('Error fetching cart:', err))
-  }, [])
+      .catch((err) => console.error('Error fetching cart:', err));
+  }, []);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleQuantityChange = (e, key) => {
-    const value = parseInt(e.target.value)
-    if (value < 1) return
-    setQuantities((prev) => ({ ...prev, [key]: value }))
-  }
+    const value = parseInt(e.target.value);
+    if (value < 1) return;
+    setQuantities((prev) => ({ ...prev, [key]: value }));
+  };
 
   const handleRemoveItem = (key) => {
-    setQuantities((prev) => ({ ...prev, [key]: 0 }))
-  }
+    setQuantities((prev) => ({ ...prev, [key]: 0 }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!cartData || !cartData.items.length) {
-      alert('Cart is empty')
-      return
+      alert('Cart is empty');
+      return;
+    }
+
+    if (!paymentMethod) {
+      alert('Please select a payment method');
+      return;
     }
 
     const cartItems = cartData.items.map((item, index) => {
-      const quantityKey = `line${index}`
+      const quantityKey = `line${index}`;
       return {
         productId: item.productId,
         productname: item.productname,
         img1: item.img1,
         price: item.price,
         quantity: quantities[quantityKey] || 1,
-      }
-    }).filter(item => item.quantity > 0)
+      };
+    }).filter(item => item.quantity > 0);
 
     const orderPayload = {
       firstname: formData.firstName,
@@ -79,7 +84,8 @@ function OrderDetails() {
       province: formData.region,
       zipcode: formData.postalCode,
       cartItems: cartItems,
-    }
+      paymentMethod: paymentMethod, // ✅ added
+    };
 
     try {
       const response = await fetch('http://localhost:8000/api/orders', {
@@ -88,14 +94,15 @@ function OrderDetails() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(orderPayload),
-      })
+      });
 
       if (response.ok) {
-        const result = await response.json()
-        console.log('Order placed:', result)
-        alert('Order placed successfully!')
+        const result = await response.json();
+        console.log('Order placed:', result);
+        alert('Order placed successfully!');
         navigate('/orderplaced');
-        // Redirect or clear form if needed
+
+        // Reset form
         setFormData({
           firstName: '',
           lastName: '',
@@ -104,18 +111,19 @@ function OrderDetails() {
           city: '',
           region: '',
           postalCode: '',
-        })
-        setCartData(null)
+        });
+        setCartData(null);
+        setPaymentMethod('');
       } else {
-        const error = await response.json()
-        console.error('Order failed:', error)
-        alert('Failed to place order.')
+        const error = await response.json();
+        console.error('Order failed:', error);
+        alert('Failed to place order.');
       }
     } catch (err) {
-      console.error('Error sending order:', err)
-      alert('Server error. Try again.')
+      console.error('Error sending order:', err);
+      alert('Server error. Try again.');
     }
-  }
+  };
 
   return (
     <div>
@@ -163,6 +171,37 @@ function OrderDetails() {
                       className="mt-2 block w-full rounded-md border border-gray-300 p-2" />
                   </div>
                 </div>
+
+                {/* Payment Method */}
+                <div>
+                  <h1 className="mb-2 text-3xl font-bold mt-5">Payment Method</h1>
+                  <div className="flex items-center gap-6">
+                    <Radio
+                      name="payment"
+                      label="Cash on Delivery"
+                      value="cash"
+                      checked={paymentMethod === "cash"}
+                      onChange={() => setPaymentMethod("cash")}
+                      ripple={false}
+                      className="hover:cursor-pointer"
+                    />
+
+                    <Radio
+                      name="payment"
+                      label="Card Payment"
+                      value="card"
+                      checked={paymentMethod === "card"}
+                      onChange={() => setPaymentMethod("card")}
+                      ripple={false}
+                      className="hover:cursor-pointer"
+                    />
+                  </div>
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-600">
+                      Selected: <strong>{paymentMethod || "None"}</strong>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -172,7 +211,7 @@ function OrderDetails() {
                 type="submit"
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
               >
-                Confirm Order
+                Checkout
               </button>
             </div>
           </form>
@@ -189,8 +228,8 @@ function OrderDetails() {
               <div>
                 <ul className="space-y-4">
                   {cartData.items.map((item, index) => {
-                    const key = `line${index}`
-                    if (quantities[key] === 0) return null
+                    const key = `line${index}`;
+                    if (quantities[key] === 0) return null;
                     return (
                       <li key={item.productId} className="flex items-center gap-4">
                         <img src={item.img1} alt={item.productname} className="w-16 h-16 rounded-sm object-cover" />
@@ -215,7 +254,7 @@ function OrderDetails() {
                           </button>
                         </div>
                       </li>
-                    )
+                    );
                   })}
                 </ul>
 
@@ -229,7 +268,7 @@ function OrderDetails() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default OrderDetails
+export default OrderDetails;

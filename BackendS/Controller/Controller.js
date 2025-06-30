@@ -217,10 +217,15 @@ export const createOrder = async (req, res) => {
       province,
       zipcode,
       cartItems,
+      paymentMethod,
     } = req.body;
 
     if (!cartItems || cartItems.length === 0) {
       return res.status(400).json({ error: 'Cart items cannot be empty' });
+    }
+
+    if (!["cash", "card"].includes(paymentMethod)) {
+      return res.status(400).json({ error: 'Invalid payment method' });
     }
 
     const newOrder = new Order({
@@ -232,6 +237,7 @@ export const createOrder = async (req, res) => {
       province,
       zipcode,
       cartItems,
+      paymentMethod,
     });
 
     const savedOrder = await newOrder.save();
