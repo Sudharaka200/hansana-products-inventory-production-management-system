@@ -474,3 +474,59 @@ export const getReviews = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+//get status
+export const getProductStatusStats = async (req, res) => {
+  try {
+    const orders = await Order.find({}).populate("cartItems.productId");
+
+    const successStats = {};
+    const failStats = {};
+
+    orders.forEach(order => {
+      if (!["Success", "Failed"].includes(order.status)) return;
+
+      order.cartItems.forEach(item => {
+        const name = item.productname;
+
+        if (order.status === "Success") {
+          successStats[name] = (successStats[name] || 0) + item.quantity;
+        } else if (order.status === "Failed") {
+          failStats[name] = (failStats[name] || 0) + item.quantity;
+        }
+      });
+    });
+
+    const success = Object.keys(successStats).map(name => ({
+      productname: name,
+      totalSales: successStats[name]
+    }));
+
+    const failed = Object.keys(failStats).map(name => ({
+      productname: name,
+      totalFails: failStats[name]
+    }));
+
+    res.json({ success, failed });
+  } catch (err) {
+    console.error("Error getting product stats:", err);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+// New function to get sales stats
+export const getProductSalesStats = async (req, res) => {
+  try {
+    const products = await Product.find();
+
+    const success = products.map(product => ({
+      productname: product.name,
+      totalSales: product.totalSales || 0,
+    }));
+
+    res.status(200).json({ success });
+  } catch (err) {
+    console.error("Error fetching product sales stats:", err);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
