@@ -23,11 +23,19 @@ const Profile = () => {
             const fetchOrders = async () => {
                 try {
                     // pending orders
+
+                    const pendingRes = await axios.get(`http://localhost:8000/api/pendingOrdersByEmail?email=${storedEmail}`);
+                    setPendingOrders(pendingRes.data);
+
+                    // success orders
+                    const successRes = await axios.get(`http://localhost:8000/api/successOrdersByEmail?email=${storedEmail}`);
+
                     const pendingRes = await axios.get(http://localhost:8000/api/pendingOrdersByEmail?email=${storedEmail});
                     setPendingOrders(pendingRes.data);
 
                     // success orders
                     const successRes = await axios.get(http://localhost:8000/api/successOrdersByEmail?email=${storedEmail});
+
                     setSuccessOrders(successRes.data);
 
                 } catch (err) {
@@ -53,6 +61,9 @@ const Profile = () => {
                     {/* Profile Card */}
                     <div className="bg-white shadow-lg rounded-2xl p-6 flex flex-col md:flex-row items-center md:items-start gap-8 mb-10">
                         <img
+
+                            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4f46e5&color=fff&size=128`}
+
                             src={https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4f46e5&color=fff&size=128}
                             alt="Profile"
                             className="w-32 h-32 rounded-full border-4 border-indigo-600"
@@ -118,7 +129,11 @@ const Profile = () => {
                                         </div>
                                         
                                         <div className="text-lg font-semibold text-gray-800">
+
+                                            {order.total ? `$${order.total}` : "N/A"}
+
                                             {order.total ? $${order.total} : "N/A"}
+
                                         </div>
                                         
                                     </div>
@@ -156,7 +171,11 @@ const Profile = () => {
                                             </p>
                                         </div>
                                         <div className="text-lg font-semibold text-gray-800">
+
+                                            {order.total ? `$${order.total}` : "N/A"}
+
                                             {order.total ? $${order.total} : "N/A"}
+
                                         </div>
                                     </div>
                                 ))}
@@ -170,5 +189,8 @@ const Profile = () => {
         </>
     );
 };
+
+
+export default Profile;
 
 export default Profile;
