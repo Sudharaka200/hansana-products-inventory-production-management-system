@@ -54,67 +54,24 @@ const productSchema = new mongoose.Schema(
 );
 
 
-// CART ITEM SCHEMA (used inside Cart)
 const cartItemSchema = new mongoose.Schema({
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
-  },
+  productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
   productname: String,
   img1: String,
   price: Number,
   quantity: Number,
 });
 
-
 const orderSchema = new mongoose.Schema(
   {
-    firstname: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    streetaddress: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    province: {
-      type: String,
-      required: true,
-    },
-    paymentMethod: {
-      type: String,
-      enum: ['cash', 'card'],
-      required: true,
-    },
-    zipcode: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-      default: "Pending",
-    },
-    cartItems: [cartItemSchema], // Embedding cart items here
+    firstname: String,
+    lastname: String,
+    email: String,
+    status: { type: String, default: "Pending" },
+    cartItems: [cartItemSchema],
   },
-  {
-    timestamps: true,
-    collection: "orders", // Use "orders" unless you're storing this in the "products" collection intentionally
-  }
+  { timestamps: true, collection: "orders" }
 );
-
 // MAIN CART SCHEMA
 const cartSchema = new mongoose.Schema(
   {
