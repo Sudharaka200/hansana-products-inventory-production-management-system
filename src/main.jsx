@@ -27,6 +27,7 @@ import ProductHistory from './Admin/ProductManager/ProductOrderHistory.jsx'
 import NewOrders from './Admin/Ref/NewOrders.jsx';
 import AddNewProduct from './Admin/ProductManager/AddNewProduct.jsx';
 import EditAdminProduct from './Admin/ProductManager/EditAdminProduct.jsx';
+import Payment from './Pages/Payment/Payment.jsx';
 
 
 const router = createBrowserRouter([
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
 {
   path:"/editproduct/:id",
   element: <EditAdminProduct />
+},
+{
+  path:"/payment",
+  element: <Payment />
 }
 
 

@@ -98,6 +98,11 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    paymentMethod: {
+      type: String,
+      enum: ['cash', 'card'],
+      required: true,
+    },
     zipcode: {
       type: String,
       required: true,
@@ -129,17 +134,17 @@ const cartSchema = new mongoose.Schema(
 );
 
 //admin Login
-const adminSchema =  new mongoose.Schema(
+const adminSchema = new mongoose.Schema(
   {
-    email:{
+    email: {
       type: String,
       required: true,
     },
-    password:{
+    password: {
       type: String,
       required: true,
     },
-    role:{
+    role: {
       type: String,
       required: true,
     }
