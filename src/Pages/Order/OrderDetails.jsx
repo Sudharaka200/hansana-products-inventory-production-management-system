@@ -14,6 +14,7 @@ function OrderDetails() {
     region: '',
     postalCode: '',
   });
+  
 
   const navigate = useNavigate();
   const [cartData, setCartData] = useState(null);
