@@ -3,7 +3,7 @@ import axios from 'axios';
 import Navbar from '../../Components/Navbar';
 import { Star } from 'lucide-react';
 
-const DEFAULT_PRODUCT_ID = '6862da896b00a5fe98551dec';
+const DEFAULT_PRODUCT_ID = '68632add6c9bcb766c3cd03d';
 
 const Profile = () => {
     const [user, setUser] = useState({
